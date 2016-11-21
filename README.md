@@ -132,6 +132,7 @@ $ rake test
 ```
 
 ### Creating package, running and testing locally
+```
 $ rake build
 $ rake install:local
 
@@ -140,7 +141,7 @@ $ fluentd -c fluent.conf -vv &
 
 # generate test event
 $ echo ' { "key1":"value1", "key2":"value2", "key3":"value3", "key4":"value4"}' | fluent-cat azurefunctions.msg
-
+```
 
 ## Contributing
 
