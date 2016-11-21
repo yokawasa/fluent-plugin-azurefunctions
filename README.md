@@ -9,7 +9,7 @@ $ gem install fluent-plugin-azurefunctions
 ## Configuration
 
 ### Azure Functions
-You need to create a function (HTTP Trigger) if you don't already have. But you need to have an function app first of all that hosts the execution of your functions in Azure. Once you have an function app, you can create a function. Here are great instructions:
+Create a function (HTTP Trigger). First, you need to have an function app that hosts the execution of your functions in Azure if you don't already have. Once you have an function app, you can create a function. Here are instructions:
 
  * [Create your first Azure Function](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-azure-function)
  * [Azure Functions developer reference](https://docs.microsoft.com/en-us/azure/azure-functions/functions-reference)
