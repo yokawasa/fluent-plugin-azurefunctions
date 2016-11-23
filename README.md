@@ -1,6 +1,9 @@
 # fluent-plugin-azurefunctions
 [Azure Functions](https://docs.microsoft.com/en-us/azure/azure-functions/functions-overview) (HTTP Trigger) output plugin for Fluentd. The plugin aggregates semi-structured data in real-time and writes the buffered data via HTTPS request to HTTP Trigger Function.
 
+![fluent-plugin-azurefunctions overview](https://github.com/yokawasa/fluent-plugin-azurefunctions/raw/master/img/Azure-Functions-Fluentd.png)
+
+
 ## Installation
 ```
 $ gem install fluent-plugin-azurefunctions
