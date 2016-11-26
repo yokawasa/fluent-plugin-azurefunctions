@@ -32,7 +32,7 @@ examples/function-csharp
     @type azurefunctions
     endpoint  AZURE_FUNCTION_ENDPOINT   # ex. https://<accountname>.azurewebsites.net/api/<functionname>
     function_key AZURE_FUNCTION_KEY     # ex. aRVQ7Lj0vzDhY0JBYF8gpxYyEBxLwhO51JSC7X5dZFbTvROs7uNg==
-    key_names key1,key2,key3,key4,key5
+    key_names key1,key2,key3
     add_time_field true
     time_field_name mytime
     time_format %s
@@ -44,12 +44,12 @@ examples/function-csharp
 
  * **endpoint (required)** - Azure Functions Endpoint URL
  * **function\_key (required)** - Azure Functions API Key
- * **key\_names (optional)** - Key names in in-comming records to post to Azure functions HTTP Trigger functions. Each key needs to be separated by a comma. If key_names not specified, all in-comming records are posted. If in-comming records contain the same key names as the ones specified in time_field_name and tag_field_name, their values are replaced by the values of time_field_name and tag_field_name
+ * **key\_names (optional)** - Key names in incoming records to post to Azure functions HTTP Trigger functions. Each key needs to be separated by a comma. If key_names not specified, all incoming records are posted. If incoming records contain the same key names as the ones specified in time_field_name and tag_field_name, their values are replaced by the values of time_field_name and tag_field_name
  * **add\_time\_field (optional)** - Default:true. This option allows to insert a time field to record
  * **time\_field\_name (optional)** - Default:time. This is required only when add_time_field is true
  * **localtime (optional)** - Default:false. Time record is inserted with UTC (Coordinated Universal Time) by default. This option allows to use local time if you set localtime true. This is valid only when add_time_field is true
  * **time\_format (optional)** -  Default:%s. Time format for a time field to be inserted. Default format is %s, that is unix epoch time. If you want it to be more human readable, set this %Y%m%d-%H:%M:%S, for example. This is valid only when add_time_field is true.
- * **add\_tag\_field (optional)** - Default:true. This option allows to insert a tag field to record
+ * **add\_tag\_field (optional)** - Default:false. This option allows to insert a tag field to record
  * **tag\_field\_name (optional)** - Default:tag. This is required only when add_time_field is true
 
 
@@ -72,14 +72,14 @@ fluent-plugin-azurefunctions adds **.rid** attribute which is UUID format and an
 </match>
 ```
 
-The plugin write all records in in-comming event stream out to Azure Functions:
+The plugin write all records in incoming event stream out to Azure Functions:
 ```
 # Generating test event using fluent-cat
-echo ' { "key1":"value1", "key2":"value2", "key3":"value3", "key4":"value4"}' | fluent-cat azurefunctions.msg
+echo ' { "key1":"value1", "key2":"value2", "key3":"value3"}' | fluent-cat azurefunctions.msg
 
 # HTTP POST request body to Azure Functions
 {
-    "payload": '{"key1":"value1", "key2":"value2", "key3":"value3", "key4":"value4", "time":"1479741633", "tag":"azurefunctions.msg"}'
+    "payload": '{"key1":"value1", "key2":"value2", "key3":"value3", "time":"1479741633"}'
 }
 
 mytime=1479741633
@@ -110,10 +110,10 @@ mytime=1479741633
 </match>
 ```
 
-The plugin write only records that are specified by key_names in in-comming event stream out to Azure Functions:
+The plugin write only records that are specified by key_names in incoming event stream out to Azure Functions:
 ```
 # Generating test event using fluent-cat
-echo ' { "key1":"value1", "key2":"value2", "key3":"value3", "key4":"value4"}' | fluent-cat azurefunctions.msg
+echo ' { "key1":"value1", "key2":"value2", "key3":"value3"}' | fluent-cat azurefunctions.msg
 
 # HTTP POST request body to Azure Functions
 {
@@ -143,8 +143,16 @@ $ rake install:local
 $ fluentd -c fluent.conf -vv &
 
 # generate test event
-$ echo ' { "key1":"value1", "key2":"value2", "key3":"value3", "key4":"value4"}' | fluent-cat azurefunctions.msg
+$ echo ' { "key1":"value1", "key2":"value2", "key3":"value3"}' | fluent-cat azurefunctions.msg
 ```
+
+## Change log
+* [Changelog](ChangeLog.md)
+
+## Links
+
+* https://rubygems.org/gems/fluent-plugin-azurefunctions
+* http://unofficialism.info/posts/fluent-plugin-azurefunctions/
 
 ## Contributing
 

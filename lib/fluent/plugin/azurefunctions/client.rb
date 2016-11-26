@@ -4,19 +4,21 @@ module AzureFunctions
       require 'rest-client'
       require 'json'
       @endpoint = endpoint
-      @function_key = function_key
       @headers = {
-        'Content-Type' => "application/json; charset=UTF-8"
+        'Content-Type' => "application/json; charset=UTF-8",
+        'x-functions-key' => function_key
       }
     end 
 
     def post(payload)
       raise ConfigError, 'no payload' if payload.empty?
       res = RestClient.post(
-              "#{@endpoint}?code=#{@function_key}",
+              @endpoint,
               { :payload => payload }.to_json,
               @headers)
       res
     end
   end
 end
+
+
