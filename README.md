@@ -81,10 +81,6 @@ echo ' { "key1":"value1", "key2":"value2", "key3":"value3"}' | fluent-cat azuref
 {
     "payload": '{"key1":"value1", "key2":"value2", "key3":"value3", "time":"1479741633"}'
 }
-
-mytime=1479741633
-
-
 ```
 
 
