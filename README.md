@@ -147,6 +147,7 @@ $ echo ' { "key1":"value1", "key2":"value2", "key3":"value3"}' | fluent-cat azur
 
 ## Links
 
+* https://yokawasa.github.io/fluent-plugin-azurefunctions
 * https://rubygems.org/gems/fluent-plugin-azurefunctions
 * http://unofficialism.info/posts/fluent-plugin-azurefunctions/
 
