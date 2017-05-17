@@ -13,10 +13,6 @@ module Fluent::Plugin
 
     DEFAULT_BUFFER_TYPE = "memory"
 
-    def initialize
-      super
-    end
-
     config_param :endpoint, :string,
                  :desc => "Azure Functions Endpoint URL"
     config_param :function_key, :string, :secret => true,
