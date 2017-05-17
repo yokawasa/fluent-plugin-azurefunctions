@@ -4,6 +4,10 @@ module Fluent
   class AzureFunctionsOutput < BufferedOutput
     Plugin.register_output('azurefunctions', self)
 
+    unless method_defined?(:log)
+      define_method('log') { $log }
+    end
+
     def initialize
       super
       require 'msgpack'
@@ -95,7 +99,7 @@ module Fluent
         begin
           @client.post(payload)
         rescue Exception => ex
-          $log.fatal "Error occured in posting to Azure Functions HTTP trigger function: " 
+          log.fatal "Error occured in posting to Azure Functions HTTP trigger function: "
                   + "'#{ex}', .rid=>#{unique_identifier}, payload=>" + payload
         end
       }
