@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 require 'fluent/plugin/output'
+require 'msgpack'
+require 'time'
+require 'fluent/plugin/azurefunctions/client'
 
 module Fluent::Plugin
   class AzureFunctionsOutput < Output
@@ -12,9 +15,6 @@ module Fluent::Plugin
 
     def initialize
       super
-      require 'msgpack'
-      require 'time'
-      require 'fluent/plugin/azurefunctions/client'
     end
 
     config_param :endpoint, :string,
