@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
 
-module Fluent
-  class AzureFunctionsOutput < BufferedOutput
-    Plugin.register_output('azurefunctions', self)
+require 'fluent/plugin/output'
+
+module Fluent::Plugin
+  class AzureFunctionsOutput < Output
+    Fluent::Plugin.register_output('azurefunctions', self)
+
+    helpers :compat_parameters
+
+    DEFAULT_BUFFER_TYPE = "memory"
 
     unless method_defined?(:log)
       define_method('log') { $log }
@@ -34,20 +40,25 @@ module Fluent
     config_param :tag_field_name, :string, :default => "tag",
                  :desc => "This is required only when add_time_field is true"
 
+    config_section :buffer do
+      config_set_default :@type, DEFAULT_BUFFER_TYPE
+    end
+
     def configure(conf)
+      compat_parameters_convert(conf, :buffer)
       super
-      raise ConfigError, 'no endpoint' if @endpoint.empty?
-      raise ConfigError, 'no function_key' if @function_key.empty?
+      raise Fluent::ConfigError, 'no endpoint' if @endpoint.empty?
+      raise Fluent::ConfigError, 'no function_key' if @function_key.empty?
       if not @key_names.nil?
         @key_names = @key_names.split(',')
       end
       if @add_time_field and @time_field_name.empty?
-        raise ConfigError, 'time_field_name must be set if add_time_field is true'
+        raise Fluent::ConfigError, 'time_field_name must be set if add_time_field is true'
       end
       if @add_tag_field and @tag_field_name.empty?
-        raise ConfigError, 'tag_field_name must be set if add_tag_field is true'
+        raise Fluent::ConfigError, 'tag_field_name must be set if add_tag_field is true'
       end
-      @timef = TimeFormatter.new(@time_format, @localtime)
+      @timef = Fluent::TimeFormatter.new(@time_format, @localtime)
     end
 
     def start
@@ -88,6 +99,14 @@ module Fluent
         record = record.merge(r)
       end
       record.to_msgpack
+    end
+
+    def formatted_to_msgpack_binary?
+      true
+    end
+
+    def multi_workers_ready?
+      true
     end
 
     def write(chunk)
