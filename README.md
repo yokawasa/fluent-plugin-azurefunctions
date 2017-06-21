@@ -4,6 +4,13 @@
 ![fluent-plugin-azurefunctions overview](https://github.com/yokawasa/fluent-plugin-azurefunctions/raw/master/img/Azure-Functions-Fluentd.png)
 
 
+## Requirements
+
+| fluent-plugin-documentdb | fluentd | ruby |
+|------------------------|---------|------|
+| >= 0.2.0 | >= v0.14.15 | >= 2.1 |
+|  < 0.2.0 | >= v0.12.0 | >= 1.9 |
+
 ## Installation
 ```
 $ gem install fluent-plugin-azurefunctions
@@ -30,6 +37,7 @@ examples/function-csharp
 ```
 <match azurefunctions.**>
     @type azurefunctions
+    @log_level info
     endpoint  AZURE_FUNCTION_ENDPOINT   # ex. https://<accountname>.azurewebsites.net/api/<functionname>
     function_key AZURE_FUNCTION_KEY     # ex. aRVQ7Lj0vzDhY0JBYF8gpxYyEBxLwhO51JSC7X5dZFbTvROs7uNg==
     key_names key1,key2,key3
@@ -52,6 +60,7 @@ examples/function-csharp
  * **add\_tag\_field (optional)** - Default:false. This option allows to insert a tag field to record
  * **tag\_field\_name (optional)** - Default:tag. This is required only when add_time_field is true
 
+[note] @log_level is a fluentd built-in parameter (optional) that controls verbosity of logging: fatal|error|warn|info|debug|trace (See also [Logging of Fluentd](http://docs.fluentd.org/articles/logging#log-level))
 
 ## Configuration examples
 
