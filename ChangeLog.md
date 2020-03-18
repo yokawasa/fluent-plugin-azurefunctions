@@ -1,3 +1,6 @@
+## 0.2.1
+* fix CVE-2020-8130 - [issue #3](https://github.com/yokawasa/fluent-plugin-azurefunctions/issues/3)
+
 ## 0.2.0
 
 * Migrate to use fluentd v0.14 API - [PR#2](https://github.com/yokawasa/fluent-plugin-azurefunctions/pull/2)
